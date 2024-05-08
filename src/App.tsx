@@ -1,9 +1,7 @@
+import { DefaultLayout } from "./layouts/DefaultLayout";
+
 function App() {
-  return (
-    <div className="mt-5 ml-20">
-      <p>Hello World</p>
-    </div>
-  );
+  return <DefaultLayout />;
 }
 
 export default App;
