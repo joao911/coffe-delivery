@@ -1,7 +1,12 @@
-import { DefaultLayout } from "./layouts/DefaultLayout";
+import { BrowserRouter } from "react-router-dom";
+import { Router } from "./Routes";
 
 function App() {
-  return <DefaultLayout />;
+  return (
+    <BrowserRouter>
+      <Router />
+    </BrowserRouter>
+  );
 }
 
 export default App;
