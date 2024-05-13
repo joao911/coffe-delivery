@@ -4,8 +4,11 @@ import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as zod from "zod";
 
-import { Input } from "../../components/Input";
 import { Container } from "../../components/ContainerItem/styles";
+import { size } from "lodash";
+import { api } from "../../api";
+import { PaymentForms } from "./Components/PaymentForms";
+import AddressForm from "./Components/AddressForm";
 
 export const CompleteOrder: React.FC = () => {
   const schema = zod.object({
@@ -16,6 +19,7 @@ export const CompleteOrder: React.FC = () => {
     neighborhood: zod.string().min(1, "Bairro obrigatório"),
     city: zod.string().min(1, "Cidade obrigatória"),
     state: zod.string().min(1, "Estado obrigatório"),
+    paymentMethod: zod.string().nonempty("Escolha a forma de pagamento"),
   });
 
   type NewCycleFormData = zod.infer<typeof schema>;
@@ -30,28 +34,46 @@ export const CompleteOrder: React.FC = () => {
       neighborhood: "",
       city: "",
       state: "",
+      paymentMethod: "",
     },
   });
 
   const {
     handleSubmit,
     reset,
-    register,
-    formState: { errors },
+
+    watch,
+    setValue,
   } = purchasingForm;
 
   function onSubmit(data: NewCycleFormData) {
     console.log(data);
     reset();
   }
+  const watchCep = watch("cep");
+
+  async function searchCep(cep: string) {
+    try {
+      const response = await api.get(`${cep}/json`);
+      setValue("street", response.data.logradouro);
+      setValue("city", response.data.localidade);
+      setValue("state", response.data.uf);
+      setValue("neighborhood", response.data.bairro);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   useEffect(() => {
-    console.log("erros", errors.street?.message);
-  }, [errors]);
+    if (size(watchCep) === 8) {
+      searchCep(watchCep);
+    }
+  }, [watchCep]);
+
   return (
     <Container>
       <h1 className="font-extrabold text-title-title-l">Complete seu pedido</h1>
-      <div className="p-[1.87rem] bg-base-card rounded-md mt-2">
+      <div className="mt-2 rounded-md ">
         <div className="flex gap-2 mb-8">
           <MapPinLine size={22} className="text-brand-yellow-dark" />
           <div>
@@ -61,19 +83,14 @@ export const CompleteOrder: React.FC = () => {
             </p>
           </div>
         </div>
-        <form action="" onSubmit={handleSubmit(onSubmit)}>
+        <form
+          action=""
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-4 "
+        >
           <FormProvider {...purchasingForm}>
-            <Input placeholder="CEP" type="text" {...register("cep")} />
-            <Input placeholder="Rua" {...register("street")} />
-            <div>
-              <Input placeholder="Número" {...register("number")} />
-              <Input placeholder="Complemento" {...register("complement")} />
-            </div>
-            <div>
-              <Input placeholder="Bairro" {...register("neighborhood")} />
-              <Input placeholder="Cidade" {...register("city")} />
-              <Input placeholder="UF" {...register("state")} />
-            </div>
+            <AddressForm />
+            <PaymentForms name="paymentMethod" />
           </FormProvider>
 
           <button type="submit">Adicionar</button>
