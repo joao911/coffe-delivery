@@ -9,19 +9,19 @@ import OurCoffees from "./Components/OurCoffees";
 export const Home: React.FC = () => {
   return (
     <div className="mb-36">
-      <section className="w-full h-[34rem] flex items-center justify-center bg-[url('/src/assets/intro-background.png')] bg-no-repeat bg-cover">
+      <section className="w-full h-80 md:h-[34rem] md:flex items-center justify-center bg-[url('/src/assets/intro-background.png')] bg-no-repeat bg-cover">
         <ContainerItem>
-          <div className="flex items-center justify-between w-full">
+          <div className="items-center justify-between w-full px-10 md:flex md:p-0">
             <div>
-              <h1 className="font-extrabold text-title-title-xl">
+              <h1 className="font-extrabold text-text-base md:text-title-title-xl">
                 Encontre o café perfeito para qualquer hora do dia
               </h1>
-              <h3 className="text-title-title-l text-base-subtitle">
+              <h3 className="md:text-title-title-l text-base-subtitle">
                 Com o Coffee Delivery você recebe seu café onde estiver, a
                 qualquer hora
               </h3>
 
-              <div className="grid grid-cols-2 gap-4 justify-items-start mt-[3.37rem]">
+              <div className="grid md:grid-cols-2 gap-4 justify-items-start mt-[3.37rem]">
                 <IconInfo
                   icon={
                     <ShoppingCart
@@ -56,7 +56,11 @@ export const Home: React.FC = () => {
                 />
               </div>
             </div>
-            <img src={CoffeImage} alt="Seu cafe fresquinho" />
+            <img
+              src={CoffeImage}
+              alt="Seu cafe fresquinho"
+              className="hidden md:block"
+            />
           </div>
         </ContainerItem>
       </section>
