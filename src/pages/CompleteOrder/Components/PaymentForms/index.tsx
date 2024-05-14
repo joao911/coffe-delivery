@@ -1,23 +1,38 @@
 import React from "react";
-import { Controller, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { Bank, CreditCard, CurrencyDollarSimple, Money } from "phosphor-react";
-import Button from "../Button";
+import { PaymentMethodInput } from "../Button";
 import { toString } from "lodash";
 
 interface PaymentFormsProps {
   name: string;
 }
 
+const paymentMethods = {
+  credit: {
+    label: "Cartão de crédito",
+    icon: <CreditCard size={16} />,
+  },
+  debit: {
+    label: "Cartão de débito",
+    icon: <Bank size={16} />,
+  },
+  money: {
+    label: "Dinheiro",
+    icon: <Money size={16} />,
+  },
+};
+
 export const PaymentForms: React.FC<PaymentFormsProps> = ({ name }) => {
   const {
     formState: { errors },
-    control,
+    register,
   } = useFormContext();
 
   const error = errors[name]?.message;
   return (
     <div className=" rounded-md bg-base-card p-[1.87rem]">
-      <div className="flex gap-2 mb-8">
+      <div className="flex gap-2">
         <CurrencyDollarSimple size={22} className="text-brand-purple" />
 
         <div>
@@ -27,30 +42,19 @@ export const PaymentForms: React.FC<PaymentFormsProps> = ({ name }) => {
           </p>
         </div>
       </div>
-      <Controller
-        name="paymentMethod"
-        control={control}
-        render={({ field }) => (
-          <div className="flex flex-col gap-4 md:flex-row">
-            <Button
-              icon={<CreditCard size={20} className="text-brand-purple" />}
-              name="Cartão de Crédito"
-              onClick={() => field.onChange("creditCard")}
-            />
-            <Button
-              icon={<Bank size={20} className="text-brand-purple" />}
-              name="Cartão de Débito"
-              onClick={() => field.onChange("debitCard")}
-            />
-            <Button
-              icon={<Money size={20} className="text-brand-purple" />}
-              name="Dinheiro"
-              onClick={() => field.onChange("cash")}
-            />
-          </div>
-        )}
-      />
-      <p className="mt-1 text-xs text-base-error">{toString(error)}</p>
+      <div className="flex flex-col w-full gap-4 md:flex-row">
+        {Object.entries(paymentMethods).map(([key, { label, icon }]) => (
+          <PaymentMethodInput
+            key={label}
+            id={key}
+            icon={icon}
+            label={label}
+            value={key}
+            {...register("paymentMethod")}
+          />
+        ))}
+      </div>
+      <p className="text-xs mt-7 text-base-error">{toString(error)}</p>
     </div>
   );
 };

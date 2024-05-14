@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { MapPinLine } from "phosphor-react";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as zod from "zod";
@@ -9,7 +8,13 @@ import { size } from "lodash";
 import { api } from "../../api";
 import { PaymentForms } from "./Components/PaymentForms";
 import AddressForm from "./Components/AddressForm";
+import { SelectedCoffees } from "./Components/SelectedCoffees";
 
+enum PaymentMethods {
+  credit = "credit",
+  debit = "debit",
+  money = "money",
+}
 export const CompleteOrder: React.FC = () => {
   const schema = zod.object({
     cep: zod.string().min(1, "CEP obrigatório"),
@@ -19,7 +24,11 @@ export const CompleteOrder: React.FC = () => {
     neighborhood: zod.string().min(1, "Bairro obrigatório"),
     city: zod.string().min(1, "Cidade obrigatória"),
     state: zod.string().min(1, "Estado obrigatório"),
-    paymentMethod: zod.string().nonempty("Escolha a forma de pagamento"),
+    paymentMethod: zod.nativeEnum(PaymentMethods, {
+      errorMap: () => {
+        return { message: "Informe o método de pagamento" };
+      },
+    }),
   });
 
   type NewCycleFormData = zod.infer<typeof schema>;
@@ -34,7 +43,7 @@ export const CompleteOrder: React.FC = () => {
       neighborhood: "",
       city: "",
       state: "",
-      paymentMethod: "",
+      paymentMethod: undefined,
     },
   });
 
@@ -72,28 +81,23 @@ export const CompleteOrder: React.FC = () => {
 
   return (
     <Container>
-      <h1 className="font-extrabold text-title-title-l">Complete seu pedido</h1>
       <div className="mt-2 rounded-md ">
-        <div className="flex gap-2 mb-8">
-          <MapPinLine size={22} className="text-brand-yellow-dark" />
-          <div>
-            <span>Endereço de entrega</span>
-            <p className="text-base-text">
-              Informe o endereço onde deseja receber seu pedido
-            </p>
-          </div>
-        </div>
         <form
           action=""
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col gap-4 "
+          className="flex flex-col gap-4 md:flex-row"
         >
           <FormProvider {...purchasingForm}>
-            <AddressForm />
-            <PaymentForms name="paymentMethod" />
+            <div className="flex flex-col gap-4">
+              <h1 className="font-extrabold text-title-title-l">
+                Complete seu pedido
+              </h1>
+              <AddressForm />
+              <PaymentForms name="paymentMethod" />
+            </div>
+            <SelectedCoffees />
           </FormProvider>
-
-          <button type="submit">Adicionar</button>
+          {/* <button type="submit">Adicionar</button> */}
         </form>
       </div>
     </Container>

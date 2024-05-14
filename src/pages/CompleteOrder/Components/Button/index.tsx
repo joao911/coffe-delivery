@@ -1,19 +1,24 @@
-import React, { ButtonHTMLAttributes } from "react";
+import { InputHTMLAttributes, ReactNode, forwardRef } from "react";
+import { Container } from "./styles";
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  icon: React.ReactNode;
-  name: string;
-}
-export const Button: React.FC<ButtonProps> = ({ icon, name, ...rest }) => {
-  return (
-    <button
-      className="flex items-center justify-center w-full gap-3 p-2 py-4 border-0 rounded-md text-text-bold-s bg-base-button hover:bg-base-hover text-base-subtitle"
-      {...rest}
-    >
-      {icon}
-      {name.toLocaleUpperCase()}
-    </button>
-  );
+type PaymentMethodInputProps = InputHTMLAttributes<HTMLInputElement> & {
+  icon: ReactNode;
+  label: string;
 };
 
-export default Button;
+export const PaymentMethodInput = forwardRef<
+  HTMLInputElement,
+  PaymentMethodInputProps
+>(({ id, icon, label, ...props }, ref) => {
+  return (
+    <Container className="w-full">
+      <input id={id} type="radio" {...props} name="paymentMethod" ref={ref} />
+      <label htmlFor={id} className="bg-red-500">
+        <div className="flex items-center justify-center h-12 gap-3 px-4 py-0 text-xs uppercase border-2 rounded-md cursor-pointer bg-base-button text-base-text border-base-button transition-duration:400ms">
+          {icon}
+          {label}
+        </div>
+      </label>
+    </Container>
+  );
+});
