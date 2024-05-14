@@ -70,7 +70,7 @@ const AddressForm: React.FC = () => {
               onChange={onChange}
               value={value}
               name="complement"
-              width={40}
+              width={21.3}
             />
           )}
         />
@@ -99,7 +99,7 @@ const AddressForm: React.FC = () => {
               onChange={onChange}
               value={value}
               name="city"
-              width={40}
+              width={17.4}
             />
           )}
         />{" "}

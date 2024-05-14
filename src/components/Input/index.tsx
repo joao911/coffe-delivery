@@ -20,7 +20,7 @@ export const Input: React.FC<InputProps> = ({ name, width, ...rest }) => {
       width={width}
     >
       <input
-        className={`p-[6px] bg-base-input rounded-md border  focus:outline-none focus:border-brand-yellow  text-base-label ${
+        className={`p-[6px] bg-base-input rounded-md border  focus:outline-none focus:border-brand-yellow  text-base-label placeholder:font-light ${
           error ? "border-base-error" : "border-base-button"
         }`}
         {...rest}
