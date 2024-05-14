@@ -3,7 +3,7 @@ import { SelectedItems } from "../SelectedItems";
 import { TotalItems } from "../TotalItems";
 import { useStore } from "../../../../store";
 import { map, reduce } from "lodash";
-import { formatMoney } from "../../../../ultils";
+import { formatMoney } from "../../../../utils";
 
 export const SelectedCoffees: React.FC = () => {
   const { cart } = useStore();
@@ -19,7 +19,7 @@ export const SelectedCoffees: React.FC = () => {
   }, [cart]);
 
   return (
-    <div className="min-w-[28rem] ">
+    <div className="md:min-w-[28rem]">
       <h1 className="font-extrabold text-title-title-l">Cafés selecionados</h1>
       <div className="p-7 bg-base-card rounded-bl-[36px] rounded-tr-[36px] rounded-tl-[6px] rounded-br-[6px] mt-4">
         {map(cart, (item) => (
@@ -37,7 +37,7 @@ export const SelectedCoffees: React.FC = () => {
             subtitle={`R$ ${formatMoney(total + 3.7)}`}
           />
         </div>
-        <button className="w-full h-[2.812rem] font-bold rounded-md bg-brand-yellow text-base-white hover:bg-brand-yellow-dark mt-6">
+        <button className="w-full h-[2.812rem] font-bold rounded-md bg-brand-yellow text-base-white hover:bg-brand-yellow-dark mt-6 hidden md:block">
           CONFIRMAR PEDIDO
         </button>
       </div>

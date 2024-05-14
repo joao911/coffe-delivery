@@ -7,7 +7,7 @@ const AddressForm: React.FC = () => {
   const { control } = useFormContext();
 
   return (
-    <div className="p-[1.87rem] bg-base-card rounded-md">
+    <div className="p-[1.87rem] bg-base-card rounded-md px-8 ">
       <div className="flex gap-2 mb-8">
         <MapPinLine size={22} className="text-brand-yellow-dark" />
         <div>

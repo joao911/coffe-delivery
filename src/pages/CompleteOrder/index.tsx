@@ -79,17 +79,22 @@ export const CompleteOrder: React.FC = () => {
         <form
           action=""
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col gap-4 md:flex-row"
+          className="flex flex-col gap-4 px-8 pb-8 md:flex-row md:px-0"
         >
           <FormProvider {...purchasingForm}>
             <div className="flex flex-col gap-4">
-              <h1 className="font-extrabold text-title-title-l">
+              <h1 className="ml-8 font-extrabold text-title-title-l md:ml-0">
                 Complete seu pedido
               </h1>
+              <div className="block md:hidden">
+                <SelectedCoffees />
+              </div>
               <AddressForm />
               <PaymentForms name="paymentMethod" />
             </div>
-            <SelectedCoffees />
+            <div className="hidden md:block">
+              <SelectedCoffees />
+            </div>
           </FormProvider>
         </form>
       </div>

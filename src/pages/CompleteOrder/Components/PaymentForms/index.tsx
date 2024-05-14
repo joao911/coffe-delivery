@@ -53,8 +53,11 @@ export const PaymentForms: React.FC<PaymentFormsProps> = ({ name }) => {
             {...register("paymentMethod")}
           />
         ))}
+        <p className="text-xs mt-7 text-base-error">{toString(error)}</p>
       </div>
-      <p className="text-xs mt-7 text-base-error">{toString(error)}</p>
+      <button className="w-full h-[2.812rem] font-bold rounded-md bg-brand-yellow text-base-white hover:bg-brand-yellow-dark mt-6 block md:hidden mt-8">
+        CONFIRMAR PEDIDO
+      </button>
     </div>
   );
 };

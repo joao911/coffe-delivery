@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import { ShoppingCart } from "phosphor-react";
 import { map } from "lodash";
 import { useStore } from "../../../../store";
-import { formatMoney } from "../../../../ultils";
+import { formatMoney } from "../../../../utils";
 
 interface CoffeeCardProps {
   coffee: {
@@ -37,12 +37,14 @@ export const CoffeeCard: React.FC<CoffeeCardProps> = ({ coffee }) => {
   }, [coffee.price, quantity]);
 
   return (
-    <div className="flex flex-col items-center justify-center pt-0 p-6 bg-base-card rounded-br-[36px] rounded-tl-[36px] rounded-tr-[6px] rounded-bl-[6px] ">
-      <img
-        src={`/coffees/${coffee.photo}`}
-        alt="Nossos cafés"
-        className="mt-[-1.25rem]"
-      />
+    <div className="flex flex-col items-center  pt-0 p-6 bg-base-card rounded-br-[36px] rounded-tl-[36px] rounded-tr-[6px] rounded-bl-[6px]">
+      <div className="mt-[-1.25rem] w-[120px] h-[120px]">
+        <img
+          src={`/coffees/${coffee.photo}`}
+          alt="Nossos cafés"
+          className="object-cover max-w-full max-h-full"
+        />
+      </div>
       <div className="flex items-center justify-center gap-2">
         {map(coffee.tags, (tag) => (
           <div
@@ -54,11 +56,13 @@ export const CoffeeCard: React.FC<CoffeeCardProps> = ({ coffee }) => {
         ))}
       </div>
 
-      <h1 className="font-extrabold text-title-title-m">{coffee.name}</h1>
-      <p className="text-base-label text-[0.875rem] mb-8">
+      <h1 className="font-extrabold text-title-title-s text-base-text">
+        {coffee.name}
+      </h1>
+      <p className="text-base-label text-[0.875rem] mb-6">
         {coffee.description}
       </p>
-      <div className="flex items-center justify-between w-full gap-4">
+      <div className="flex items-center justify-between w-full gap-4 mt-auto">
         <div className="flex items-center gap-2">
           <p className="tex-base-text text-[0.875rem] font-normal">R$</p>
           <strong className="text-base-text text-[1.5rem]  font-extrabold">
