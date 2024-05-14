@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 import { ShoppingCart } from "phosphor-react";
 import { map } from "lodash";
+import { useStore } from "../../../../store";
+import { formatMoney } from "../../../../ultils";
 
 interface CoffeeCardProps {
   coffee: {
@@ -13,6 +15,27 @@ interface CoffeeCardProps {
   };
 }
 export const CoffeeCard: React.FC<CoffeeCardProps> = ({ coffee }) => {
+  const addToCart = useStore((state) => state.addToCart);
+  const [quantity, setQuantity] = useState(1);
+
+  const handleAddToCart = () => {
+    setQuantity(quantity + 1);
+  };
+
+  const handleRemoveFromCart = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
+
+  function handleAddToCartWithQuantity() {
+    addToCart({ ...coffee, quantity });
+  }
+
+  const price = useMemo(() => {
+    return formatMoney(coffee.price * quantity);
+  }, [coffee.price, quantity]);
+
   return (
     <div className="flex flex-col items-center justify-center pt-0 p-6 bg-base-card rounded-br-[36px] rounded-tl-[36px] rounded-tr-[6px] rounded-bl-[6px] ">
       <img
@@ -39,23 +62,33 @@ export const CoffeeCard: React.FC<CoffeeCardProps> = ({ coffee }) => {
         <div className="flex items-center gap-2">
           <p className="tex-base-text text-[0.875rem] font-normal">R$</p>
           <strong className="text-base-text text-[1.5rem]  font-extrabold">
-            {coffee.price.toFixed(2)}
+            {price}
           </strong>
         </div>
         <div className="flex items-center flex-1 gap-2 ">
           <div className="flex items-center justify-between flex-1 gap-1 p-2 rounded-md bg-base-button">
-            <button className="text-brand-purple">-</button>
+            <button
+              onClick={handleRemoveFromCart}
+              className="text-brand-purple"
+            >
+              -
+            </button>
             <input
               type="text"
               name=""
               id=""
-              value={"1"}
+              value={quantity}
               disabled
               className="w-3"
             />
-            <button className="text-brand-purple">+</button>
+            <button onClick={handleAddToCart} className="text-brand-purple">
+              +
+            </button>
           </div>
-          <button className="flex items-center justify-center w-8 h-8 rounded-md bg-brand-purple-dark text-base-card">
+          <button
+            onClick={handleAddToCartWithQuantity}
+            className="flex items-center justify-center w-8 h-8 rounded-md bg-brand-purple-dark text-base-card"
+          >
             <ShoppingCart weight="fill" size={19} className="text-white" />
           </button>
         </div>

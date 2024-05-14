@@ -3,8 +3,12 @@ import { MapPin, ShoppingCart } from "phosphor-react";
 import coffeeLogoImg from "../../assets/coffee-delivery-logo.svg";
 import ContainerItem from "../ContainerItem";
 import { Link } from "react-router-dom";
+import { useStore } from "../../store";
+import { size } from "lodash";
 
 export const Header: React.FC = () => {
+  const { cart } = useStore();
+
   return (
     <header className=" px-10 py-4 md:px-40 md:py-8 bg-white w-max-[70rem]">
       <ContainerItem>
@@ -23,7 +27,7 @@ export const Header: React.FC = () => {
               <Link to="completeOrder">
                 <ShoppingCart size={22} weight="fill" />
                 <span className="absolute px-1 rounded-full top-[-11px] right-[-8px]  bg-brand-yellow-dark text-brand-yellow-light text-center size-3 w-4 h-4 flex items-center justify-center">
-                  0
+                  {size(cart)}
                 </span>
               </Link>
             </div>

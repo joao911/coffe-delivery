@@ -1,28 +1,44 @@
 import { create } from "zustand";
 import { CartState } from "./types";
-import { filter, map, some } from "lodash";
+import { filter, findIndex, map } from "lodash";
 
 export const useStore = create<CartState>((set) => ({
   cart: [], // inicializa o carrinho como um array vazio
 
-  addToCart: (item) =>
+  addToCart: (item) => {
     set((state) => {
-      // Verifica se o item já está no carrinho usando o ID
-      const itemExists = some(
+      // Utiliza findIndex do lodash para verificar se o item já está no carrinho
+      const cartItemIndex = findIndex(
         state.cart,
         (cartItem) => cartItem.id === item.id
       );
 
-      if (itemExists) {
-        return state;
+      if (cartItemIndex !== -1) {
+        // Se o item já existe no carrinho, utiliza map do lodash para atualizar a quantidade
+        return {
+          cart: map(state.cart, (cartItem, index) => {
+            if (index === cartItemIndex) {
+              return {
+                ...cartItem,
+                quantity: cartItem.quantity + item.quantity,
+              };
+            }
+            return cartItem;
+          }),
+        };
+      } else {
+        // Se o item não existe, adiciona ao carrinho com a quantidade recebida
+        return { cart: [...state.cart, item] };
       }
-      // Se o item não existe, adiciona ao carrinho com quantidade 1
-      return { cart: [...state.cart, { ...item, quantity: 1 }] };
-    }),
+    });
+  },
   removeFromCart: (itemId) =>
     set((state) => ({
       cart: filter(state.cart, (item) => item.id !== itemId),
     })),
+
+  clearCart: () => set({ cart: [] }),
+
   increaseQuantity: (id) =>
     set((state) => ({
       cart: map(state.cart, (item) => {
@@ -41,5 +57,4 @@ export const useStore = create<CartState>((set) => ({
         return item;
       }),
     })),
-  clearCart: () => set({ cart: [] }),
 }));
