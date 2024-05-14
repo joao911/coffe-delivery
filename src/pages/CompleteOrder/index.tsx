@@ -47,13 +47,7 @@ export const CompleteOrder: React.FC = () => {
     },
   });
 
-  const {
-    handleSubmit,
-    reset,
-
-    watch,
-    setValue,
-  } = purchasingForm;
+  const { handleSubmit, reset, watch, setValue } = purchasingForm;
 
   function onSubmit(data: NewCycleFormData) {
     console.log(data);
@@ -97,7 +91,6 @@ export const CompleteOrder: React.FC = () => {
             </div>
             <SelectedCoffees />
           </FormProvider>
-          {/* <button type="submit">Adicionar</button> */}
         </form>
       </div>
     </Container>

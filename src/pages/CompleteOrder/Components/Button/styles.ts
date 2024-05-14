@@ -11,7 +11,7 @@ export const Container = styled.div`
   input:checked + label div {
     ${css`
       background: #ebe5f9;
-      border-color: #8047f8;
+      border: 1px solid #8047f8;
 
       &:hover {
         background: #ebe5f9;

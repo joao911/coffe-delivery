@@ -14,7 +14,7 @@ export const TotalItems: React.FC<TotalItemsProps> = ({
   return (
     <div className="flex items-center justify-between">
       <Subtitle hasTitle={hasTitle}>{title} </Subtitle>
-      <Subtitle> {subtitle}</Subtitle>
+      <Subtitle hasTitle={hasTitle}> {subtitle}</Subtitle>
     </div>
   );
 };
