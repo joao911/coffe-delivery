@@ -26,7 +26,7 @@ export const Header: React.FC = () => {
             <div className="relative flex items-center justify-center p-[0.5rem] h-[2.3rem] rounded-md bg-brand-yellow-light text-brand-yellow-dark">
               <Link to="completeOrder">
                 <ShoppingCart size={22} weight="fill" />
-                <span className="absolute px-1 rounded-full top-[-11px] right-[-8px]  bg-brand-yellow-dark text-brand-yellow-light text-center size-3 w-4 h-4 flex items-center justify-center text-[12px]">
+                <span className="absolute px-1 rounded-full top-[-9px] right-[-8px]  bg-brand-yellow-dark text-brand-yellow-light text-center size-3 w-4 h-4 flex items-center justify-center text-[12px]">
                   {size(cart)}
                 </span>
               </Link>

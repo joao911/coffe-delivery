@@ -42,20 +42,22 @@ export const PaymentForms: React.FC<PaymentFormsProps> = ({ name }) => {
           </p>
         </div>
       </div>
-      <div className="flex flex-col w-full gap-4 md:flex-row">
-        {Object.entries(paymentMethods).map(([key, { label, icon }]) => (
-          <PaymentMethodInput
-            key={label}
-            id={key}
-            icon={icon}
-            label={label}
-            value={key}
-            {...register("paymentMethod")}
-          />
-        ))}
+      <div className="flex flex-col w-full gap-4 ">
+        <div className="flex flex-col w-full gap-4 md:flex-row">
+          {Object.entries(paymentMethods).map(([key, { label, icon }]) => (
+            <PaymentMethodInput
+              key={label}
+              id={key}
+              icon={icon}
+              label={label}
+              value={key}
+              {...register("paymentMethod")}
+            />
+          ))}
+        </div>
         <p className="text-xs mt-7 text-base-error">{toString(error)}</p>
       </div>
-      <button className="w-full h-[2.812rem] font-bold rounded-md bg-brand-yellow text-base-white hover:bg-brand-yellow-dark mt-6 block md:hidden mt-8">
+      <button className="w-full h-[2.812rem] font-bold rounded-md bg-brand-yellow text-base-white hover:bg-brand-yellow-dark mt-6 block md:hidden">
         CONFIRMAR PEDIDO
       </button>
     </div>

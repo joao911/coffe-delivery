@@ -9,6 +9,8 @@ import { api } from "../../api";
 import { PaymentForms } from "./Components/PaymentForms";
 import AddressForm from "./Components/AddressForm";
 import { SelectedCoffees } from "./Components/SelectedCoffees";
+import { useNavigate } from "react-router-dom";
+import { useStore } from "../../store";
 
 enum PaymentMethods {
   credit = "credit",
@@ -16,6 +18,9 @@ enum PaymentMethods {
   money = "money",
 }
 export const CompleteOrder: React.FC = () => {
+  const navigate = useNavigate();
+  const clearCart = useStore((state) => state.clearCart);
+
   const schema = zod.object({
     cep: zod.string().min(1, "CEP obrigatório"),
     street: zod.string().min(1, "Rua obrigatória"),
@@ -52,6 +57,8 @@ export const CompleteOrder: React.FC = () => {
   function onSubmit(data: NewCycleFormData) {
     console.log(data);
     reset();
+    navigate("/orderConfirmed");
+    clearCart();
   }
   const watchCep = watch("cep");
 

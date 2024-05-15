@@ -83,7 +83,7 @@ export const CoffeeCard: React.FC<CoffeeCardProps> = ({ coffee }) => {
               id=""
               value={quantity}
               disabled
-              className="w-3"
+              className="w-5"
             />
             <button onClick={handleAddToCart} className="text-brand-purple">
               +
