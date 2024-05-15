@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as zod from "zod";
+import { toast } from "react-toastify";
 
 import { Container } from "../../components/ContainerItem/styles";
 import { size } from "lodash";
@@ -21,6 +22,7 @@ export const CompleteOrder: React.FC = () => {
   const navigate = useNavigate();
   const clearCart = useStore((state) => state.clearCart);
   const setAddress = useStore((state) => state.setAddress);
+  const { cart } = useStore();
 
   const schema = zod.object({
     cep: zod.string().min(1, "CEP obrigatório"),
@@ -56,11 +58,17 @@ export const CompleteOrder: React.FC = () => {
   const { handleSubmit, reset, watch, setValue } = purchasingForm;
 
   function onSubmit(data: NewCycleFormData) {
-    console.log(data);
-    setAddress(data);
-    reset();
-    navigate("/orderConfirmed");
-    clearCart();
+    if (!size(cart)) {
+      toast.error(
+        "Seu carrinho esta vazio, adicione itens para finalizar a compra"
+      );
+      return;
+    } else {
+      setAddress(data);
+      reset();
+      navigate("/orderConfirmed");
+      clearCart();
+    }
   }
   const watchCep = watch("cep");
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 import { Clock, CurrencyDollar, MapPin } from "phosphor-react";
 import ContainerItem from "../../components/ContainerItem";
 import { InfoIcon } from "./components/InfoIcon";
@@ -9,10 +9,6 @@ import { useStore } from "../../store";
 export const OrderConfirmed: React.FC = () => {
   const navigate = useNavigate();
   const { address } = useStore();
-
-  useEffect(() => {
-    console.log("address", address);
-  }, [address]);
 
   const paymentMethod = useMemo(() => {
     switch (address.paymentMethod) {
