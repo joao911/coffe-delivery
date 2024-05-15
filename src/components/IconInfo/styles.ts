@@ -6,3 +6,11 @@ export const Container = styled.div`
   gap: 0.75rem;
   justify-content: center;
 `;
+
+interface IconProps {
+  bgColor: string;
+}
+
+export const ContentIcon = styled.div<IconProps>`
+  background-color: ${({ bgColor }) => bgColor};
+`;

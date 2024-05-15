@@ -30,28 +30,28 @@ export const Home: React.FC = () => {
                       className="text-white"
                     />
                   }
-                  bgColor="brand-yellow-dark"
+                  bgColor="#C47F17"
                   text="Compra simples e segura"
                 />
                 <IconInfo
                   icon={
                     <Timer weight="fill" size={19} className="text-white" />
                   }
-                  bgColor="brand-yellow"
+                  bgColor="#DBAC2C"
                   text="Entrega rápida e rastreada"
                 />
                 <IconInfo
                   icon={
                     <Package weight="fill" size={19} className="text-white" />
                   }
-                  bgColor="base-text"
+                  bgColor="#574F4D"
                   text="Embalagem mantém o cafe intacto"
                 />
                 <IconInfo
                   icon={
                     <Coffee weight="fill" size={19} className="text-white" />
                   }
-                  bgColor="brand-purple"
+                  bgColor="#8047F8"
                   text="O café chega fresquinho até você"
                 />
               </div>
