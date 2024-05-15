@@ -13,12 +13,23 @@ export interface CartItem extends Coffee {
   quantity: number;
 }
 
+export interface Address {
+  street: string;
+  number: string;
+  complement: string;
+  neighborhood: string;
+  city: string;
+  state: string;
+  paymentMethod: string;
+}
+
 export interface CartState {
   cart: CartItem[];
   addToCart: (item: CartItem) => void;
   removeFromCart: (itemId: number) => void;
   clearCart: () => void;
-
   increaseQuantity: (id: number) => void;
   decreaseQuantity: (id: number) => void;
+  address: Address;
+  setAddress: (address: Address) => void;
 }

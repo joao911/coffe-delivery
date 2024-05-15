@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { CartState } from "./types";
+import { Address, CartState } from "./types";
 import { filter, findIndex, map } from "lodash";
 
 export const useStore = create<CartState>((set) => ({
@@ -57,4 +57,6 @@ export const useStore = create<CartState>((set) => ({
         return item;
       }),
     })),
+  address: {} as Address,
+  setAddress: (address) => set({ address }),
 }));

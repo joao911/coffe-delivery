@@ -20,6 +20,7 @@ enum PaymentMethods {
 export const CompleteOrder: React.FC = () => {
   const navigate = useNavigate();
   const clearCart = useStore((state) => state.clearCart);
+  const setAddress = useStore((state) => state.setAddress);
 
   const schema = zod.object({
     cep: zod.string().min(1, "CEP obrigatório"),
@@ -56,6 +57,7 @@ export const CompleteOrder: React.FC = () => {
 
   function onSubmit(data: NewCycleFormData) {
     console.log(data);
+    setAddress(data);
     reset();
     navigate("/orderConfirmed");
     clearCart();

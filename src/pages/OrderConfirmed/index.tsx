@@ -1,12 +1,31 @@
-import React from "react";
+import React, { useEffect, useMemo } from "react";
 import { Clock, CurrencyDollar, MapPin } from "phosphor-react";
 import ContainerItem from "../../components/ContainerItem";
 import { InfoIcon } from "./components/InfoIcon";
 import OrderConfirmedImg from "../../assets/confirmed-order.svg";
 import { useNavigate } from "react-router-dom";
+import { useStore } from "../../store";
 
 export const OrderConfirmed: React.FC = () => {
   const navigate = useNavigate();
+  const { address } = useStore();
+
+  useEffect(() => {
+    console.log("address", address);
+  }, [address]);
+
+  const paymentMethod = useMemo(() => {
+    switch (address.paymentMethod) {
+      case "credit":
+        return "Cartão de Crediário";
+      case "debit":
+        return "Cartão de Debito";
+      case "money":
+        return "Dinheiro";
+      default:
+        return "Cartão de crédito";
+    }
+  }, [address.paymentMethod]);
   return (
     <ContainerItem>
       <div className="flex flex-col gap-10 mt-1 px-9 md:mt-20">
@@ -25,9 +44,12 @@ export const OrderConfirmed: React.FC = () => {
               icon={<MapPin weight="fill" className="text-base-white" />}
               text={
                 <p className="text-base-text">
-                  Entrega em <strong>Rua João Daniel Martinelli, 102</strong>
+                  Entrega em{" "}
+                  <strong>
+                    {address?.street}, {address?.number}
+                  </strong>
                   <br />
-                  Santa Catarina -Porto Alegre, Rs{" "}
+                  {address?.neighborhood} - {address?.city}, {address?.state}
                 </p>
               }
             />
@@ -51,7 +73,7 @@ export const OrderConfirmed: React.FC = () => {
                 <p className="text-base-text">
                   Pagamento na entrega
                   <br />
-                  <strong>Cartão de Credito</strong>
+                  <strong>{paymentMethod}</strong>
                 </p>
               }
             />
