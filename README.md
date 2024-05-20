@@ -32,9 +32,9 @@
 <div class="section">
     <h2>Instruções de Instalação</h2>
     <p>Clone o repositório:</p>
-    <pre>git clone https://github.com/seuusuario/timer-task-manager.git</pre>
+    <pre>git@github.com:joao911/coffe-delivery.git</pre>
     <p>Navegue até a pasta do projeto:</p>
-    <pre>cd timer-task-manager</pre>
+    <pre>cd coffe-delivery</pre>
     <p>Instale as dependências:</p>
     <pre>npm install</pre>
     <p>Execute a aplicação:</p>
@@ -47,6 +47,7 @@
 </div>
 
 <div class="section">
+
     <h2>Licença</h2>
     <p>Este projeto está licenciado sob a Licença MIT - veja o arquivo LICENSE.md para detalhes.</p>
 </div>
